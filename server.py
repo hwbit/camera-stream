@@ -3,8 +3,6 @@ import socket
 import pickle
 import struct
 
-
-
 class Server():
     def __init__(self):
         print("Starting...")
@@ -19,9 +17,13 @@ class Server():
     def run(self):
         while True:
             ret, frame = self.video_capture.read()
+            # self.video_capture.set(3, 800)
+            # self.video_capture.set(4, 600)
+            
             serialized_frame = pickle.dumps(frame)
             message_size = struct.pack("L", len(serialized_frame))
             self.client_socket.sendall(message_size + serialized_frame)
+
             cv2.imshow('Server Video', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -35,4 +37,7 @@ class Server():
 if __name__ == "__main__":
     s = Server()
     while True:
-        s.run()
+        try:
+            s.run()
+        except KeyboardInterrupt:
+            print("closed... restarting server...")
