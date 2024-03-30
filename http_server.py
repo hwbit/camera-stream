@@ -20,10 +20,11 @@ class Server():
             ret, frame = self.video_capture.read()
             # serialized_frame = pickle.dumps(frame)
             # message_size = struct.pack("L", len(serialized_frame))
-            imgencode=cv2.imencode('.jpg',frame)[1]
-            stringData=imgencode.tobytes()
             # yield (b'--frame\r\n'
-            #        b'Content-Type: image/jpeg\r\n\r\n' + serialized_frame + b'\r\n')
+            #        b'Content-Type: image/jpeg\r\n\r\n' + serialized_frame + b'\r\n')\
+                
+            imgencode=cv2.imencode('.jpg', frame)[1]
+            stringData=imgencode.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + stringData + b'\r\n')
 
