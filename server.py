@@ -6,7 +6,10 @@ import struct
 class Server():
     def __init__(self):
         print("Starting...")
+        self.resolution = (1280, 720)
         self.video_capture = cv2.VideoCapture(0)
+        self.video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.resolution[0])
+        self.video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.resolution[1])
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind(('', 9999))  
         self.server_socket.listen(10)
@@ -17,9 +20,6 @@ class Server():
     def run(self):
         while True:
             ret, frame = self.video_capture.read()
-            # self.video_capture.set(3, 800)
-            # self.video_capture.set(4, 600)
-            
             serialized_frame = pickle.dumps(frame)
             message_size = struct.pack("L", len(serialized_frame))
             self.client_socket.sendall(message_size + serialized_frame)

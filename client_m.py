@@ -17,6 +17,7 @@ class Client():
     total_data_expected = 0
     last_throughput_calc_time = time.time()
     last_throughput_data_received = 0
+    total_latency = 0
 
     def __init__(self):
         self.video_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,7 +42,6 @@ class Client():
             packed_msg_size = self.received_data[:self.payload_size]
             self.received_data = self.received_data[self.payload_size:]
             msg_size = struct.unpack("<L", packed_msg_size)[0]
-            # msg_size = struct.unpack("L", packed_msg_size)[0]
 
             while len(self.received_data) < msg_size:
                 self.received_data += self.video_client_socket.recv(4096)
@@ -53,6 +53,7 @@ class Client():
 
             current_time = time.time()
             packet_latency = current_time - self.last_packet_time
+            self.total_latency += packet_latency
             self.last_packet_time = current_time
 
             self.total_packets_received += 1
@@ -72,9 +73,12 @@ class Client():
                 self.last_throughput_data_received = self.total_data_received
                 self.last_throughput_calc_time = current_time
 
-                self.ws.append([current_timestamp, duration, fps, running_throughput, None])
-                print("Logged:", [current_timestamp, duration, fps, running_throughput, None])
-                
+                # Calculate average packet latency
+                avg_latency = self.total_latency / self.total_packets_received if self.total_packets_received != 0 else 0
+
+                self.ws.append([current_timestamp, duration, fps, running_throughput, avg_latency])
+                print("Logged:", [current_timestamp, duration, fps, running_throughput, avg_latency])
+
                 self.fps_interval_frames = 0
                 self.fps_interval_start_time = current_time
 
@@ -85,15 +89,15 @@ class Client():
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-        # Calculate average packet latency
-        avg_latency = (current_time - self.fps_interval_start_time) / self.total_packets_received
-
-        current_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]  # Format timestamp with milliseconds
-        duration = current_time - start_time
-
         # Calculate final running throughput
+        current_time = time.time()
+        duration = current_time - start_time
         running_throughput = (self.total_data_received - self.last_throughput_data_received) / (current_time - self.last_throughput_calc_time) / (1024 * 1024)  # MB/s
 
+        # Calculate average packet latency
+        avg_latency = self.total_latency / self.total_packets_received if self.total_packets_received != 0 else 0
+
+        current_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]  # Format timestamp with milliseconds
         self.ws.append([current_timestamp, duration, None, running_throughput, avg_latency])
         print("Logged:", [current_timestamp, duration, None, running_throughput, avg_latency])
 
