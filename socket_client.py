@@ -3,8 +3,6 @@ import socket
 import pickle
 import struct
 
-
-
 # Create a socket client
 class Client():
     total_packets_received = 0
@@ -14,7 +12,6 @@ class Client():
         # self.video_client_socket.connect(("10.0.0.98", 9999))  # Replace with the server’s IP address
         # self.video_client_socket.connect(("10.0.0.102", 9999))  # Replace with the server’s IP address
         self.video_client_socket.connect(("10.0.0.231", 9999))  # Replace with the server’s IP address
-
 
         self.received_data = b""
         self.payload_size = struct.calcsize("<L")
