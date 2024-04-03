@@ -5,6 +5,7 @@ import numpy as np
 import requests
 import struct
 import time
+import threading
 
 from imutils.video import FPS
 from datetime import datetime
@@ -12,7 +13,7 @@ from openpyxl import Workbook
 
 
 # URL = "http://10.0.0.98:9999/"  # URL of the server streaming the video
-URL = "http://127.0.0.1:9999"
+URL = "http://140.193.192.156:9999"
 
 # determines frame rate
 CHUNK_SIZE = 16384 # default 4096
@@ -55,6 +56,10 @@ class Client():
         fps = FPS().start()
         print("Loading Video")
 
+        frame = -1
+
+        threading.Thread(target=self.face_recognition, args=(frame)).start()
+
         start_time = time.time()
         broken = False
         while True:        
@@ -76,9 +81,6 @@ class Client():
                             
                             # decode the data
                             frame = cv2.imdecode(np.frombuffer(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
-                            
-                            # call method to do face recognition
-                            self.face_recognition(frame)
                             
                             # start metrics
                             self.do_metrics(start_time, jpg)
@@ -112,56 +114,58 @@ class Client():
     # end watch stream
         
     def face_recognition(self, frame):
-        ## this handles the face recognition
-        boxes = face_recognition.face_locations(frame)
-        # compute the facial embeddings for each face bounding box
-        encodings = face_recognition.face_encodings(frame, boxes)
+        while frame != -1:
+        
+            ## this handles the face recognition
+            boxes = face_recognition.face_locations(frame)
+            # compute the facial embeddings for each face bounding box
+            encodings = face_recognition.face_encodings(frame, boxes)
 
-        # loop over the facial embeddings
-        for encoding in encodings:
-            # attempt to match each face in the input image to our known
-            # encodings
-            matches = face_recognition.compare_faces(self.data["encodings"],
-                encoding)
-            name = "Unknown" #if face is not recognized, then print Unknown
+            # loop over the facial embeddings
+            for encoding in encodings:
+                # attempt to match each face in the input image to our known
+                # encodings
+                matches = face_recognition.compare_faces(self.data["encodings"],
+                    encoding)
+                name = "Unknown" #if face is not recognized, then print Unknown
 
-            # check to see if we have found a match
-            if True in matches:
-                # find the indexes of all matched faces then initialize a
-                # dictionary to count the total number of times each face
-                # was matched
-                matchedIdxs = [i for (i, b) in enumerate(matches) if b]
-                counts = {}
+                # check to see if we have found a match
+                if True in matches:
+                    # find the indexes of all matched faces then initialize a
+                    # dictionary to count the total number of times each face
+                    # was matched
+                    matchedIdxs = [i for (i, b) in enumerate(matches) if b]
+                    counts = {}
 
-                # loop over the matched indexes and maintain a count for
-                # each recognized face face
-                for i in matchedIdxs:
-                    name = data["names"][i]
-                    counts[name] = counts.get(name, 0) + 1
+                    # loop over the matched indexes and maintain a count for
+                    # each recognized face face
+                    for i in matchedIdxs:
+                        name = data["names"][i]
+                        counts[name] = counts.get(name, 0) + 1
 
-                # determine the recognized face with the largest number
-                # of votes (note: in the event of an unlikely tie Python
-                # will select first entry in the dictionary)
-                name = max(counts, key=counts.get)
+                    # determine the recognized face with the largest number
+                    # of votes (note: in the event of an unlikely tie Python
+                    # will select first entry in the dictionary)
+                    name = max(counts, key=counts.get)
 
-                #If someone in your dataset is identified, print their name on the screen
-                # ensures that name isn't spammed on screen
-                if self.currentname != name:
-                    self.currentname = name
-                    print(self.currentname)
+                    #If someone in your dataset is identified, print their name on the screen
+                    # ensures that name isn't spammed on screen
+                    if self.currentname != name:
+                        self.currentname = name
+                        print(self.currentname)
 
-            # update the list of names
-            self.names.append(name)
+                # update the list of names
+                self.names.append(name)
 
-        # loop over the recognized faces
-        for ((top, right, bottom, left), name) in zip(boxes, self.names):
-            # draw the predicted face name on the image - color is in BGR
-            cv2.rectangle(frame, (left, top), (right, bottom),
-                (0, 255, 225), 2)
-            y = top - 15 if top - 15 > 15 else top + 15
-            cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
-                .8, (0, 255, 255), 2)
-    # end facial recognition
+            # loop over the recognized faces
+            for ((top, right, bottom, left), name) in zip(boxes, self.names):
+                # draw the predicted face name on the image - color is in BGR
+                cv2.rectangle(frame, (left, top), (right, bottom),
+                    (0, 255, 225), 2)
+                y = top - 15 if top - 15 > 15 else top + 15
+                cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
+                    .8, (0, 255, 255), 2)
+        # end facial recognition
 
     def do_metrics(self, start_time, jpg):
         current_time = time.time()
