@@ -56,7 +56,7 @@ class Client():
         fps = FPS().start()
         print("Loading Video")
 
-        frame = -1
+        frame = None
 
         threading.Thread(target=self.face_recognition, args=(frame)).start()
 
@@ -114,8 +114,10 @@ class Client():
     # end watch stream
         
     def face_recognition(self, frame):
-        while frame != -1:
-        
+        while frame is None:
+            time.sleep(0.1)
+
+        while frame is not None:
             ## this handles the face recognition
             boxes = face_recognition.face_locations(frame)
             # compute the facial embeddings for each face bounding box
