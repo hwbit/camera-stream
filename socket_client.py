@@ -3,17 +3,17 @@ import socket
 import pickle
 import struct
 
+# Replace with server's IP
+# URL = "10.0.0.98"
+URL = "127.0.0.1" # local host
+
 # Create a socket client
 class Client():
     total_packets_received = 0
     
-    def __init__(self):
+    def __init__(self, url):
         self.video_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.video_client_socket.connect(("10.0.0.98", 9999))  # Replace with the server’s IP address
-        # self.video_client_socket.connect(("10.0.0.102", 9999))  # Replace with the server’s IP address
-        # self.video_client_socket.connect(("10.0.0.231", 9999))  # Replace with the server’s IP address
-        # self.video_client_socket.connect(("127.0.0.1", 9999))  # Replace with the server’s IP address
-
+        self.video_client_socket.connect((url, 9999))
         self.received_data = b""
         self.payload_size = struct.calcsize("<L")
 
@@ -39,10 +39,11 @@ class Client():
             self.received_data = self.received_data[msg_size:]
 
             # Deserialize the received frame
-            # print(frame_data)
             received_frame = pickle.loads(frame_data)
-            # received_frame = pickle.loads(open(frame_data, "rb").read())
-            # received_frame = cv2.imdecode(np.frombuffer(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
+            
+            # face req here
+            
+            # metrics here        
 
             # Display the received frame
             cv2.imshow('Client Video', received_frame)
@@ -52,11 +53,15 @@ class Client():
                 break
 
         # Release resources
+        
+        # finally metrics here
+        
+        
         cv2.destroyAllWindows()
         self.video_client_socket.close()
   
 # end client
       
 if __name__ == "__main__":
-    c = Client()
+    c = Client(URL)
     c.run()

@@ -1,4 +1,5 @@
 /.vscode
-/stash
 /dataset
+/stash
+
 encodings.pickle
