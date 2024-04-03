@@ -1,5 +1,7 @@
 /.vscode
 /dataset
+/metrics
 /stash
 
+*.xlsx
 encodings.pickle
