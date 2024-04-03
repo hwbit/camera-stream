@@ -2,7 +2,7 @@ import cv2
 import requests
 import numpy as np
 
-url = "http://10.0.0.102:9999/"  # URL of the server streaming the video
+url = "http://10.0.0.98:9999/"  # URL of the server streaming the video
 
 broken = False
 

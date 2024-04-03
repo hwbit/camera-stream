@@ -18,6 +18,11 @@ class Client():
     last_throughput_calc_time = time.time()
     last_throughput_data_received = 0
     total_latency = 0
+    
+    # default 4096
+    # incrase this number for better fps
+    recv_size = 4096
+    
 
     def __init__(self):
         self.video_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -37,14 +42,14 @@ class Client():
 
         while True:
             while len(self.received_data) < self.payload_size:
-                self.received_data += self.video_client_socket.recv(4096)
+                self.received_data += self.video_client_socket.recv(self.recv_size)
 
             packed_msg_size = self.received_data[:self.payload_size]
             self.received_data = self.received_data[self.payload_size:]
             msg_size = struct.unpack("<L", packed_msg_size)[0]
 
             while len(self.received_data) < msg_size:
-                self.received_data += self.video_client_socket.recv(4096)
+                self.received_data += self.video_client_socket.recv(self.recv_size)
 
             frame_data = self.received_data[:msg_size]
             self.received_data = self.received_data[msg_size:]
