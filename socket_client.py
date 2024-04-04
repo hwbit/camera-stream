@@ -39,11 +39,7 @@ class Client():
             self.received_data = self.received_data[msg_size:]
 
             # Deserialize the received frame
-            received_frame = pickle.loads(frame_data)
-            
-            # face req here
-            
-            # metrics here        
+            received_frame = pickle.loads(frame_data) 
 
             # Display the received frame
             cv2.imshow('Client Video', received_frame)
@@ -51,15 +47,9 @@ class Client():
             # Press ‘q’ to quit
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-
-        # Release resources
-        
-        # finally metrics here
-        
         
         cv2.destroyAllWindows()
         self.video_client_socket.close()
-  
 # end client
       
 if __name__ == "__main__":

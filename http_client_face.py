@@ -10,7 +10,6 @@ import time
 from datetime import datetime
 from openpyxl import Workbook
 
-
 # URL = "http://10.0.0.98:9999/"  # URL of the server streaming the video
 URL = "http://140.193.192.156:9999"
 
@@ -112,7 +111,6 @@ class Client():
                                 broken = True
                                 self.thread_exit = True
                                 break
-                            
                             
                         # end if - data streaming
                     # end for loop - response chunk    

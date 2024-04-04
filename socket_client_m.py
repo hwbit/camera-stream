@@ -24,7 +24,6 @@ class Client():
     # incrase this number for better fps
     recv_size = 4096
     
-
     def __init__(self):
         self.video_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.video_client_socket.connect(("10.0.0.102", 9999))  # Replace with the server’s IP address

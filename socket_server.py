@@ -33,7 +33,6 @@ class Server():
             
 #end class
 
-
 if __name__ == "__main__":
     s = Server()
     while True:
