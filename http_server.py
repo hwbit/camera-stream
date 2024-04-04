@@ -1,6 +1,7 @@
 import cv2
 import pickle
 import struct
+
 from flask import Flask, Response
 
 app = Flask(__name__)

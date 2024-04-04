@@ -1,13 +1,12 @@
 import cv2
 import face_recognition
-import pickle
 import numpy as np
+import pickle
 import requests
 import struct
-import time
 import threading
+import time
 
-from imutils.video import FPS
 from datetime import datetime
 from openpyxl import Workbook
 
@@ -111,9 +110,7 @@ class Client():
                             # q to quit - after run time length
                             if cv2.waitKey(1) & 0xFF == ord('q') or time.time() - start_time > self.run_time:
                                 broken = True
-                                if self.face_req:
-                                    self.thread_exit = True
-                                    thread.join()
+                                self.thread_exit = True
                                 break
                             
                             
@@ -135,6 +132,8 @@ class Client():
         
         # Release resources
         cv2.destroyAllWindows()
+        if self.face_req:
+            thread.join()
     # end watch stream
         
     def face_recognition(self):
@@ -165,7 +164,7 @@ class Client():
                         # loop over the matched indexes and maintain a count for
                         # each recognized face face
                         for i in matchedIdxs:
-                            name = data["names"][i]
+                            name = self.data["names"][i]
                             counts[name] = counts.get(name, 0) + 1
 
                         # determine the recognized face with the largest number
