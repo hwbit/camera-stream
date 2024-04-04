@@ -21,7 +21,7 @@ class Server():
         while True:
             ret, frame = self.video_capture.read()
             serialized_frame = pickle.dumps(frame)
-            message_size = struct.pack("L", len(serialized_frame))
+            message_size = struct.pack("<L", len(serialized_frame))
             self.client_socket.sendall(message_size + serialized_frame)
 
             cv2.imshow('Server Video', frame)
