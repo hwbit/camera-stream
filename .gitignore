@@ -3,5 +3,13 @@
 /metrics
 /stash
 
+*.env
 *.xlsx
+
+credentials.json
+token.json
+
 encodings.pickle
+image.jpg
+
+TODO
