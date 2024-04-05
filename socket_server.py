@@ -24,7 +24,7 @@ class Server():
             message_size = struct.pack("<L", len(serialized_frame))
             self.client_socket.sendall(message_size + serialized_frame)
 
-            cv2.imshow('Server Video', frame)
+            # cv2.imshow('Server Video', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         
