@@ -7,6 +7,8 @@ import time
 from datetime import datetime
 from openpyxl import Workbook
 
+url = "10.0.0.102"
+
 class Client():
     total_packets_received = 0
     total_frames_received = 0
@@ -24,9 +26,9 @@ class Client():
     # incrase this number for better fps
     recv_size = 4096
     
-    def __init__(self):
+    def __init__(self, url):
         self.video_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.video_client_socket.connect(("10.0.0.102", 9999))  # Replace with the server’s IP address
+        self.video_client_socket.connect((url, 9999))  # Replace with the server’s IP address
         self.received_data = b""
         self.payload_size = struct.calcsize("<L")
 
@@ -112,9 +114,8 @@ class Client():
         # Release resources
         cv2.destroyAllWindows()
         self.video_client_socket.close()
-        
-
+# end class
 
 if __name__ == "__main__":
-    c = Client()
+    c = Client(url)
     c.run()

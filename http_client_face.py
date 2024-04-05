@@ -10,8 +10,7 @@ import time
 from datetime import datetime
 from openpyxl import Workbook
 
-# URL = "http://10.0.0.98:9999/"  # URL of the server streaming the video
-URL = "http://140.193.192.156:9999"
+URL = "http://10.0.0.98:9999/"  # URL of the server streaming the video
 
 # determines frame rate
 # 4096, 8192, 16382, 32768
@@ -107,7 +106,7 @@ class Client():
                             self.do_metrics(start_time, current_time, jpg)
                             
                             # q to quit - after run time length
-                            if cv2.waitKey(1) & 0xFF == ord('q') or time.time() - start_time > self.run_time:
+                            if cv2.waitKey(1) & 0xFF == ord('q') or (self.run_time> -1 and time.time() - start_time > self.run_time):
                                 broken = True
                                 self.thread_exit = True
                                 break
@@ -230,8 +229,9 @@ class Client():
 
         # Save the workbook
         self.wb.save(f"http_metrics_{self.chunk_size}-face_req_{self.face_req}.xlsx")   
-    # end save metrics       
+    # end save metrics
+#end class  
         
-if __name__ == "__main__":
+if __name__ == "__main__":  
     c = Client(URL, CHUNK_SIZE, data, run_time=300, face_req=True)
     c.watch_stream()

@@ -29,8 +29,7 @@ class Server():
                 break
         
         self.video_capture.release()
-        self.cv2.destroyAllWindows()
-            
+        self.cv2.destroyAllWindows()        
 #end class
 
 if __name__ == "__main__":

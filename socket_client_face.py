@@ -12,7 +12,8 @@ from openpyxl import Workbook
 
 
 # URL = "10.0.0.98"  # URL of the server streaming the video
-URL = "127.0.0.1"
+# URL = "127.0.0.1"
+URL = "raspberrypi"
 
 # determines frame rate
 # 4096, 8192, 16382, 32768
@@ -104,7 +105,7 @@ class Client():
             self.do_metrics(start_time, current_time, msg_size)
 
             # Press ‘q’ to quit
-            if cv2.waitKey(1) & 0xFF == ord('q') or time.time() - start_time > self.run_time:
+            if cv2.waitKey(1) & 0xFF == ord('q') or (self.run_time > -1 and time.time() - start_time > self.run_time):
                 self.thread_exit = True
                 break
 
@@ -212,8 +213,9 @@ class Client():
 
         # Save the workbook
         self.wb.save(f"socket_metrics_{self.recv_size}-face_req_{self.face_req}.xlsx")  
-    # end save metrics       
+    # end save metrics
+# end class    
 
 if __name__ == "__main__":
-    c = Client(URL, CHUNK_SIZE, data, run_time=5, face_req=True)
+    c = Client(URL, CHUNK_SIZE, data, run_time=300, face_req=False)
     c.run()

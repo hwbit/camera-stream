@@ -7,6 +7,8 @@ from openpyxl import Workbook
 import requests
 import numpy as np
 
+url = "http://10.0.0.102:9999/"  # URL of the server streaming the video
+
 class Client():
     total_packets_received = 0
     total_frames_received = 0
@@ -115,8 +117,10 @@ class Client():
 
         # Release resources
         cv2.destroyAllWindows()
+    # end run
+# ene class
 
 if __name__ == "__main__":
-    url = "http://10.0.0.102:9999/"  # URL of the server streaming the video
+
     c = Client(url)
     c.run()
