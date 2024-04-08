@@ -26,9 +26,9 @@
    2. Install any missing packages that may prevent program from running
    
 # Connecting to Server
-1. Update the URL in the same protocol you want with the IP address or hostname of the Raspberry Pi
+1. Update the URL in the same protocol you want with the IP address or hostname of the Raspberry Pi in `xxxx_client_face.py`
 2. Run the file to connect to the server
-   1. `python http_client.py` or `python socket_client.py`
+   1. `python http_client_face.py` or `python socket_client_face.py`
    2. Install any missing packages that may prevent program from running
 3. Press `q` to quit.
 

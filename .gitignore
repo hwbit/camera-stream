@@ -5,6 +5,7 @@
 
 *.env
 *.xlsx
+*.zip
 
 credentials.json
 token.json

@@ -12,10 +12,8 @@ import time
 from datetime import datetime
 from openpyxl import Workbook
 
-
-# URL = "10.0.0.98"  # URL of the server streaming the video
-# URL = "127.0.0.1"
-URL = "raspberrypi"
+# URL = "127.0.0.1"     # URL for the server streaming the video
+URL = "raspberrypi"     # 10.0.0.98 local pi address
 
 # determines frame rate
 # 4096, 8192, 16382, 32768

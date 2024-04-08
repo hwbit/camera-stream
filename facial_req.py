@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 # Credits: Caroline Dunn (https://github.com/carolinedunn/facial_recognition)
+# this file is to test the facial recognition locally
 
 # import the necessary packages
 from imutils.video import VideoStream
