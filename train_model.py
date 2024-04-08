@@ -1,7 +1,6 @@
 #! /usr/bin/python
 
-# Credits:  Caroline Dunn (facial recognition)
-# https://github.com/carolinedunn/facial_recognition
+# Credits: Caroline Dunn (https://github.com/carolinedunn/facial_recognition)
 
 # import the necessary packages
 from imutils import paths

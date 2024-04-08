@@ -1,8 +1,6 @@
-# Credits:  Caroline Dunn (facial recognition code)
-# https://github.com/carolinedunn/facial_recognition
+# Credits: Caroline Dunn (https://github.com/carolinedunn/facial_recognition)
 # Email Code taken from Gmail Documentation
 # https://developers.google.com/gmail/api/guides/sending
-
 
 import base64
 import cv2
