@@ -1,3 +1,6 @@
+# Credits: Google
+# https://developers.google.com/docs/api/quickstart/python
+
 import os.path
 
 from google.auth.transport.requests import Request

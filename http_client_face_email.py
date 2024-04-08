@@ -1,3 +1,9 @@
+# Credits:  Caroline Dunn (facial recognition code)
+# https://github.com/carolinedunn/facial_recognition
+# Email Code taken from Gmail Documentation
+# https://developers.google.com/gmail/api/guides/sending
+
+
 import base64
 import cv2
 import face_recognition
@@ -118,7 +124,7 @@ class Client():
                             cv2.imshow('Stream', frame)
                             
                             # start metrics
-                            # self.do_metrics(start_time, current_time, jpg)
+                            self.do_metrics(start_time, current_time, jpg)
                             
                             # q to quit - after run time length
                             if cv2.waitKey(1) & 0xFF == ord('q') or (self.run_time > -1 and time.time() - start_time > self.run_time):
@@ -188,9 +194,12 @@ class Client():
                         # ensures that name isn't spammed on screen
                         if self.currentname != name:
                             self.currentname = name
-                            print(self.currentname)
+                            print(self.currentname) # print the name of the person on in frame
+                            
+                            # take picture
                             img_name = "image.jpg"
                             cv2.imwrite(img_name, self.frame)
+                            
                             request = self.send_message(name)
                             print(request)      # 200 status code - email sent successfully
                             

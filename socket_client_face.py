@@ -1,3 +1,7 @@
+# Credits:  Caroline Dunn (facial recognition code)
+# https://github.com/carolinedunn/facial_recognition
+# Email Code taken from Gmail Documentation
+
 import cv2
 import face_recognition
 import numpy as np
@@ -17,7 +21,7 @@ URL = "raspberrypi"
 
 # determines frame rate
 # 4096, 8192, 16382, 32768
-CHUNK_SIZE = 8192 # default 4096
+CHUNK_SIZE = 4096 # default 4096
 
 # #Determine faces from encodings.pickle file model created from train_model.py
 encodingsP = "encodings.pickle"

@@ -1,5 +1,8 @@
 #! /usr/bin/python
 
+# Credits:  Caroline Dunn (facial recognition)
+# https://github.com/carolinedunn/facial_recognition
+
 # import the necessary packages
 from imutils.video import VideoStream
 from imutils.video import FPS

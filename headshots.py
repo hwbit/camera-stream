@@ -1,5 +1,9 @@
 import cv2
 
+# Main Credits:  Caroline Dunn
+# https://github.com/carolinedunn/facial_recognition
+# contains slight modifications
+
 # name = 'Henry' #replace with your name
 name = input("Input Name (should be the same as the folder name): ") #replace with your name
 
