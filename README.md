@@ -1,3 +1,8 @@
+# Camera-Stream
+Streams video from a device (Raspberry Pi) and allows a client to connect to the stream. The client side will do facial recognition from the incoming stream and perform a task based on the person. The main intentions of this project is to record and compare networking metrics on different video streaming methods.
+
+There are two implementations for the stream, one using HTTP and the other using Sockets. Upon facial recognition, the program will send an email based on the recognized face. Only the HTTP client has this implemented but it could easily be included in the socket implementation as well. This program is written such that is is not limited to just sending emails, it can be modified for other functionalities such as playing sounds, recording the video stream, or some sort of authentication.
+
 # Required Equipment
 * Client - your laptop/computer
 * Raspberry Pi 4

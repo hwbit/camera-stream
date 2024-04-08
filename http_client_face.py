@@ -14,7 +14,6 @@ from openpyxl import Workbook
 
 URL = "http://10.0.0.98:9999/"  # URL of the server streaming the video
 
-
 # determines frame rate
 # 4096, 8192, 16382, 32768
 CHUNK_SIZE = 16382 # default 4096
