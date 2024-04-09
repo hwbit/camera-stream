@@ -9,8 +9,11 @@ app = Flask(__name__)
 class Server():
     def __init__(self):
         print("Starting...")
-        self.resolution = (1280, 720)
+        # self.resolution = (2560, 1440)
+        # self.resolution = (1920, 1080)
+        # self.resolution = (1280, 720)
         # self.resolution = (800, 600)
+        self.resolution = (640, 480)
 
         self.video_capture = cv2.VideoCapture(0)
         self.video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.resolution[0])
