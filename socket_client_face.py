@@ -217,5 +217,5 @@ class Client():
 # end class    
 
 if __name__ == "__main__":
-    c = Client(URL, CHUNK_SIZE, data, run_time=300, face_req=False)
+    c = Client(URL, CHUNK_SIZE, data, run_time=300, face_req=True)
     c.run()
