@@ -1,5 +1,9 @@
 # Camera-Stream
-Streams video from a device (Raspberry Pi) and allows a client to connect to the stream. The client side will do facial recognition from the incoming stream and perform a task based on the person. The main intentions of this project is to record and compare networking metrics on different video streaming methods.
+This project is for COMP 4300 (Winter 2024). It is built upon Caroline Dunn's facial recognition software. The main intentions of this project is to record and compare networking metrics on different video streaming methods. It also looks at how the different streaming methods can affect local processing.
+
+# How it works
+
+Streams video from a device (Raspberry Pi) and allows a client to connect to the stream. The client side will do facial recognition from the incoming stream and perform a task based on the person. 
 
 There are two implementations for the stream, one using HTTP and the other using Sockets. Upon facial recognition, the program will send an email based on the recognized face. Only the HTTP client has this implemented but it could easily be included in the socket implementation as well. This program is written such that is is not limited to just sending emails, it can be modified for other functionalities such as playing sounds, recording the video stream, or some sort of authentication.
 
@@ -23,6 +27,7 @@ There are two implementations for the stream, one using HTTP and the other using
    1. Take about 20 pictures of various angles and emotions
    2. (Take more pictures for better results)
 4. Run file to train model: `python train_model.py`
+5. To test, run `python facial_req.py`
 
 # Running the Server (Raspberry Pi)
 1. Attach webcam to Raspberry Pi
@@ -49,6 +54,8 @@ There are two implementations for the stream, one using HTTP and the other using
 5. Create a .env file with variable `EMAIL_ADDRESS`
    1. e.g., `EMAIL_ADDRESS="your-gmail-account-here"`
    2. Install dotenv library: `pip install python-dotenv`
+6. Run `python http_server.py` on the Raspberry Pi
+7. Run `python http_client_face_email.py` on the client
 
 # Credits:  
 * Caroline Dunn (https://github.com/carolinedunn/facial_recognition)
