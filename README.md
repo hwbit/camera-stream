@@ -3,6 +3,8 @@ This project is for COMP 4300 (Winter 2024).
 
 It is built upon Caroline Dunn's facial recognition software. Instead of doing the processing locally, we will have a server stream a video for a client to connect to. The main intentions of this project is to record and compare networking metrics on different video streaming methods. It also looks at how the different streaming methods can affect local processing.
 
+This project could have been done without the facial recognition portion but we wanted to implement an actual use case.
+
 # How it works
 
 Streams video from a device (Raspberry Pi) and allows a client to connect to the stream. The client side will do facial recognition from the incoming stream and perform a task based on the person. 
