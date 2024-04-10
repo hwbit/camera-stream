@@ -1,7 +1,7 @@
 # Camera-Stream
 This project is for COMP 4300 (Winter 2024). 
 
-It is built upon Caroline Dunn's facial recognition software. Instead of doing the processing locally, we will have a server stream a video for a client to connect to. The main intentions of this project is to record and compare networking metrics on different video streaming methods. It also looks at how the different streaming methods can affect local processing.
+It is built upon Caroline Dunn's facial recognition software. Instead of doing the processing locally, we will have a server stream a live stream from a webcam and have a client connect to the server and do some processing. The main intentions of this project is to record and compare networking metrics on different video streaming methods. It also looks at how the different streaming methods can affect local processing.
 
 This project could have been done without the facial recognition portion but we wanted to implement an actual use case.
 
