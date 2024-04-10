@@ -29,6 +29,7 @@ There are two implementations for the stream, one using HTTP and the other using
    1. Take about 20 pictures of various angles and emotions
    2. (Take more pictures for better results)
 4. Run file to train model: `python train_model.py`
+   1. This would create an `encodings.pickle` file that contains the trained dataset
 5. To test, run `python facial_req.py`
 
 # Running the Server (Raspberry Pi)
